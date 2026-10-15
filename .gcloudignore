@@ -1,0 +1,14 @@
+.gcloudignore
+.git
+.git/**
+.env
+.env.*
+!.env.example
+.venv
+.venv/**
+__pycache__
+**/__pycache__/**
+*.log
+tests
+tests/**
+*.zip
