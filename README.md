@@ -1,79 +1,70 @@
-# Ariadne — Personal Digital Safety & Epistemic Provenance Copilot
+# Ariadne — Multi-Channel Epistemic Safety Copilot
 
-**2026 Google DeepMind AI Hackathon (Seoul Startup Campus)**  
-**Official Track:** `Track 3: Google AI for social good`  
-**Live Cloud Run Demo URL:** [https://hackathon-app-xhhkfbrg4a-du.a.run.app](https://hackathon-app-xhhkfbrg4a-du.a.run.app)  
-**Public GitHub Repository:** [https://github.com/kgg2512/google-hackathon-2026-starter](https://github.com/kgg2512/google-hackathon-2026-starter)  
-**Lead Model:** `gemini-4-argon` (1M Unified Context Window, 95% Implicit Context Caching)  
-**Companion Models:** `gemini-3.8-flash`, `gemma-4-31b-it`, `gemini-nano-banana-2.1`, `gemini-3.8-flash-tts`
+**Track 3: Google AI for Social Good** — *2026 Google DeepMind AI Hackathon (Seoul)*
 
----
-
-## 1. Problem Statement & Epistemic Philosophy (PRD v0.5)
-
-Modern AI-enabled scams—voice-cloned family emergencies, authority impersonation, sideloaded `.apk` traps, and supplier invoice redirects—rarely rely on a single synthetic media file. Instead, attackers exploit **broken epistemic provenance across multiple communication channels**:
-- A caller on an unknown burner number claims to be a family member whose phone screen broke (**Account Identifier vs. Claimed Persona break**).
-- A message includes an internal callback phone number or verification portal (**Circular Verification Trap**).
-- Forwarded messages are repeated across chat groups to create an illusion of corroboration (**Forwarded Duplicate Inflation**).
-- Adversarial strings (`IGNORE ALL PREVIOUS INSTRUCTIONS...`) are embedded inside text or image captions to hijack naive AI safety filters (**Prompt Injection**).
-
-Single-image deepfake detectors fail because they output opaque numerical percentages (`"87% scam probability"`) that induce panic or false reassurance. **Ariadne** is built on three foundational epistemic axioms:
-1. **`Synthetic Signal != Fraud`** (Creative, assistive, or compressed media can appear synthetic without malicious intent).
-2. **`Authentic Media != Safe`** (Real screenshots, real stolen photos, or real forwarded invoices can be weaponized inside an impersonation thread).
-3. **`Unverified != Safe`** (Any high-consequence action—money wire, credential entry, `.apk` sideloading, secrecy pledge—requires **Independent Out-of-Band Verification**).
+- **Live Deployed App (Google Cloud Run)**: [https://hackathon-app-xhhkfbrg4a-du.a.run.app](https://hackathon-app-xhhkfbrg4a-du.a.run.app)
+- **Public GitHub Repository**: [https://github.com/kgg2512/google-hackathon-2026-starter](https://github.com/kgg2512/google-hackathon-2026-starter)
+- **Playable Demo Video (Direct MP4 — No Login Required)**: [https://github.com/kgg2512/google-hackathon-2026-starter/raw/main/demo.mp4](https://github.com/kgg2512/google-hackathon-2026-starter/raw/main/demo.mp4) *(also served on Cloud Run at [https://hackathon-app-xhhkfbrg4a-du.a.run.app/demo.mp4](https://hackathon-app-xhhkfbrg4a-du.a.run.app/demo.mp4))*
 
 ---
 
-## 2. Multi-Model & Multimodal Architecture
+## 1. Problem & Target Users
 
-Ariadne orchestrates **five distinct models** via the official `google-genai` SDK (`client.interactions.create`):
+Older adults, families, and small business staff increasingly face coordinated multi-channel scams across SMS, voice calls, messenger apps, and video calls. Single-artifact deepfake detectors fail in two critical ways:
+1. **Authentic media can still be used for fraud** (e.g., an attacker sends an authentic leaked document or compromises a real account and demands an urgent wire transfer to a third-party beneficiary).
+2. **Benign messages can be misclassified** if an assistant relies on superficial keyword triggers rather than decomposing claims, requested actions, and verification status.
 
-| Stage | Model | Configuration | Responsibility |
-| :--- | :--- | :--- | :--- |
-| **Stage 1: Pre-Audit Guard** | Deterministic Guard | Zero-SSRF / Regex | Enforces **FR01 Scoped Consent**, collapses forwarded duplicates (**FR03**), isolates in-message callback numbers (**FR05**), and quarantines prompt injections (**Section 7**). |
-| **Stage 2: Round 1 Lead Architect** | `gemini-4-argon` | `thinking_level="medium"` | Performs initial cross-channel thread decomposition over the **1M Unified Context Window** with a **21,255-token Static Epistemic Constitution Prefix** (activating **95% Implicit Context Caching**). |
-| **Stage 3: Adversarial Critic** | `gemini-3.8-flash` | `thinking_level="medium"` | Audits Round 1 draft for circular trap endorsement (**FR05**), account-persona conflation (**FR04**), duplicate inflation (**FR03**), or prohibited numerical probability claims (**FR07**). |
-| **Stage 4: Round 2 Self-Repair** | `gemini-4-argon` | `thinking_level="high"` | Repairs all Critic defects, constructs the interactive **Ariadne's Thread Provenance Graph**, and ranks independent out-of-band anchors (`Saved Contacts` -> `112 / 1332 / 118 Registries`). |
-| **Stage 5: Privacy Help Packet** | `gemma-4-31b-it` | Open-Weight Companion | Generates a **PII-minimized Third-Party Help Packet (FR10)** scrubbed of personal phone numbers and names for sharing with family members or bank fraud desks. |
-| **Stage 6: Multimodal Studio** | `gemini-nano-banana-2.1` + `gemini-3.8-flash-tts` | Image + WAV Audio (`Kore`, `"calm, clear, and reassuring"`) | Generates a high-contrast visual provenance diagram card and a playable, accessible calm voice briefing to de-escalate user panic. |
+**Ariadne** is an epistemic safety copilot that separates **what was observed**, **what is claimed**, **what remains unverified**, and **how to verify independently out-of-band** before acting on high-stakes requests.
 
 ---
 
-## 3. 7-Pillar Showcase+ User Interface (`index.html`)
+## 2. How Google AI Is Used
 
-1. **Pillar 1 — Named Persona Scenarios & Dual-Mode Execution:**
-   - **Min-jun Park (68, Retired Principal):** Family voice clone emergency + KakaoTalk detention wire request.
-   - **Ji-yoon Kim (31, UX Designer):** Overseas customs fee + sideloaded `.apk` link + forwarded duplicate + embedded prompt injection.
-   - **Sora Han (42, Specialty Coffee Roastery Owner):** Legitimate-looking B2B supplier settlement account update (nuanced false-alarm prevention).
-   - Supports both **0.2s Pre-Verified Showcase Mode** and **Live Multi-Model Server-Sent Events (SSE) Streaming Mode**.
-2. **Pillar 2 — Scoped Consent Gate (FR01), Multimodal Input & 1M Context Meter:**
-   - Explicit opt-in consent gate, multimodal file attachment (`image/*, audio/*, video/*, .pdf, .csv`), 1M token utilization bar (`21,255+ / 1,000,000 tokens`, `95% Implicit Cache Active`), and **FR04 Account ID vs. Claimed Persona Matrix**.
-3. **Pillar 3 — Live Multi-Model Orchestration DAG & Telemetry HUD:**
-   - Real-time 6-stage pipeline HUD displaying active model delegation and millisecond latency per stage.
-4. **Pillar 4 — Interactive HTML5 Canvas "Ariadne's Thread" Graph & Companion Studio:**
-   - Draggable/interactive HTML5 Canvas provenance graph (`Observed Fact`, `Unverified Claim`, `Quarantined Circular Trap`, `Independent Out-of-Band Anchor`), `gemini-nano-banana-2.1` visual card, and playable `gemini-3.8-flash-tts` audio player.
-5. **Pillar 5 — Autonomous Verification Loop Diff Inspector:**
-   - Side-by-side comparison of **Round 1 Initial Draft**, **Adversarial Critic Defects**, **Round 2 Self-Corrected Output**, and the **FR07 Observed vs. Claimed vs. Unverified Claims Ledger**.
-6. **Pillar 6 — Mandatory Human-in-the-Loop (HITL) Gate & FR09 Live Re-Evaluation:**
-   - Allows the user to input out-of-band verification results (**FR09**) to dynamically recompute the graph via `/api/recompute`, requires explicit HITL approval (**FR08**) before unlocking response actions, and provides one-click **Revoke Consent & Purge Session Data (FR01/FR09)**.
-7. **Pillar 7 — Interactive System Architecture & 1M Pipeline Walkthrough Tab:**
-   - Built-in architectural briefing and PRD v0.5 traceability matrix (`FR01`–`FR11` & `Section 7`).
+Ariadne runs a multi-stage verification pipeline on the official `google-genai` SDK (`v1.73.1`):
+- **`gemini-4-argon` (Round 1 Decomposer & Round 2 Synthesizer)**: Extracts structured claims (`IDENTITY`, `CRISIS`, `PAYMENT_REQUEST`, `AUTHORITY`, `URGENCY`, `CHANNEL_SHIFT`), identifies unverified gaps, and synthesizes a plain-language decision brief with out-of-band verification steps.
+- **`gemini-3.8-flash` (Epistemic Safety Critic)**: Audits the Round 1 draft to ensure synthetic media is not equated with automatic fraud, authentic formatting is not equated with safety, and benign messages are not falsely flagged as emergencies.
+- **`gemma-4-31b-it` (Privacy & PII Redaction Auditor)**: Generates a redacted help packet (`help_packet`) that masks phone numbers and bank account identifiers before a user shares the summary with a trusted family member or public helpline (`112`, `1332`, `118`).
+- **`gemini-nano-banana-2.1` & `gemini-3.8-flash-tts`**: Generates visual warning diagrams and spoken Korean audio guidance for accessibility.
 
 ---
 
-## 4. Local Setup & Cloud Run Deployment
+## 3. Key Implemented Features
 
-### Run Locally
+1. **Dual Operating Modes (Clearly Separated in UI & API)**:
+   - **Live Multi-Agent API Mode (`/api/analyze/stream` & `/api/analyze` with `mode="live"`)**: Executes real-time calls to `gemini-4-argon`, `gemini-3.8-flash`, and `gemma-4-31b-it` on any custom user input, reporting exact per-stage call status (`completed` vs. `failed`) and elapsed wall-clock latency.
+   - **Pre-Verified Scenario Fixtures (`mode="fixture"`)**: Clearly labeled reference fixtures for instant inspection of three representative scenarios.
+2. **Strict Input Isolation & Honest Failure States**:
+   - Custom inputs never inherit preset touchpoints, claims, provenance nodes, or known contacts.
+   - If a model call times out or errors, Ariadne explicitly reports `status: "failed"` (`overall_status: "failed"` or `"partial_failure"`) and leaves ungenerated fields empty rather than substituting preset data as a fake success.
+3. **Structured Claims Ledger & Cross-Channel Provenance Graph**:
+   - Displays each extracted claim's type, source touchpoint, verification state, and missing evidence.
+   - Interactive HTML5 Canvas graph linking touchpoints (`T1..Tn`), claims (`C1..Cn`), unverified gaps, and out-of-band verification actions (`A1..An`).
+4. **Human-in-the-Loop (HITL) Decision Gate & Redacted Help Packet**:
+   - Ariadne does **not** automatically contact third parties, block bank accounts, or submit police reports. Users review out-of-band verification steps and must explicitly check a confirmation box before unlocking the redacted help packet.
+
+---
+
+## 4. Live Verification Summary (4-Part Unified Test Suite)
+
+All four verification checks were executed against the live application:
+- **Test A (Benign Input — Library Book Club Notice)**: Input `"도서관 독서모임 안내, 송금·링크·다운로드·개인정보 요구 없음"` produced `VERIFIED_LOW` risk with zero leakage of preset family/wire claims or preset contacts.
+- **Test B (Fictional Urgent Wire Scam Input)**: Custom urgent wire demand extracted the specific payment/urgency claims, linked unverified gaps, and generated independent out-of-band verification steps matching the input.
+- **Test C (Controlled Model Timeout / Failure)**: Simulated timeout (`simulate_failure="timeout"`) returned `overall_status: "failed"` with `call_outcome: "failed"` and empty claims/anchors (`[]`), never disguising fallback text as completed live analysis.
+- **Test D (Deployed Cloud Run UI End-to-End)**: Verified live custom input submission, SSE stage progression, and full DOM rendering of the summary, claims ledger, provenance graph, out-of-band checklist, and redacted help packet.
+
+---
+
+## 5. Current Limitations
+
+- **Advisory Only (No Financial Interception)**: Ariadne cannot hold, block, or reverse real bank transfers; "Pause Before Acting" in the UI is user guidance, not bank-level transaction blocking.
+- **Session Storage Scope**: Client-side purge clears `localStorage` and in-memory server session history for the current instance, but requests sent to the Gemini API are subject to Google's standard API data handling policies.
+- **Latency in Live Mode**: Full multi-model execution (`gemini-4-argon` Round 1 + `gemini-3.8-flash` Critic + `gemini-4-argon` Round 2 + `gemma-4-31b-it` Redactor) takes ~10–25 seconds depending on network and model load.
+
+---
+
+## 6. Quick Start
+
 ```bash
 pip install -r requirements.txt
 uvicorn app:app --host 0.0.0.0 --port 8080
 ```
-Open `http://localhost:8080` in your browser.
-
-### Verify API Endpoints
-- `GET /health` — Service health & model registry
-- `GET /api/readiness` — Implicit cache token count (`21,255` static tokens) & active model configuration
-- `GET /api/presets` — Pre-verified multi-model bundles for all 3 Named Personas
-- `POST /api/analyze/stream` — Live Server-Sent Events (SSE) multi-model pipeline
-- `POST /api/recompute` — FR09 dynamic epistemic graph re-evaluation upon user correction
-- `POST /api/hitl/decision` — Pillar 6 Human-in-the-Loop audit commit & FR01 session data purge

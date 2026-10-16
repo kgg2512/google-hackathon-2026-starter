@@ -1,0 +1,199 @@
+{
+  "base_url": "https://hackathon-app-xhhkfbrg4a-du.a.run.app",
+  "timestamp": "2026-10-16T15:52:41+0900",
+  "test_A_benign_book_club": {
+    "pass": true,
+    "elapsed_sec": 51.16,
+    "overall_status": "partial_failure",
+    "risk_tier": "VERIFIED_LOW",
+    "preset_leak_detected": false,
+    "summary_headline": "Informational SMS notice regarding a regular book club meeting with no actionable requests, external links, or financial demands.",
+    "known_contacts_count": 0,
+    "dag_stages": [
+      {
+        "id": "consent_pre_audit",
+        "label": "FR01 Consent & Pre-Audit",
+        "model": "Deterministic Guard",
+        "status": "completed",
+        "call_outcome": "deterministic_success",
+        "latency_ms": 2
+      },
+      {
+        "id": "argon_round1",
+        "label": "Round 1 Decomposition",
+        "model": "gemini-4-argon",
+        "status": "completed",
+        "call_outcome": "live_api_success",
+        "latency_ms": 10233,
+        "error": null
+      },
+      {
+        "id": "flash_critic",
+        "label": "Adversarial Critic (FR03-FR07)",
+        "model": "gemini-3.8-flash",
+        "status": "completed",
+        "call_outcome": "live_api_success",
+        "latency_ms": 4025,
+        "error": null
+      },
+      {
+        "id": "argon_round2",
+        "label": "Round 2 Self-Repair",
+        "model": "gemini-4-argon",
+        "status": "completed",
+        "call_outcome": "live_api_success",
+        "latency_ms": 14518,
+        "error": null
+      },
+      {
+        "id": "gemma_privacy",
+        "label": "PII Help Packet (FR10)",
+        "model": "gemma-4-31b-it",
+        "status": "failed",
+        "call_outcome": "failed",
+        "latency_ms": 20000,
+        "error": "TimeoutError: "
+      },
+      {
+        "id": "companion_media",
+        "label": "Visual + Voice Studio",
+        "model": "gemini-nano-banana-2.1 + gemini-3.8-flash-tts",
+        "status": "completed",
+        "call_outcome": "img:live_api_success | tts:live_api_success",
+        "latency_ms": 21295
+      }
+    ]
+  },
+  "test_B_fictional_urgent_wire": {
+    "pass": false,
+    "elapsed_sec": 57.05,
+    "overall_status": "partial_failure",
+    "risk_tier": "CRITICAL_HIGH",
+    "preset_leak_detected": false,
+    "claims_count": 0,
+    "oob_anchors_count": 1,
+    "summary_headline": "An unknown phone number claiming to be 'Nephew Minsu' urgently requests a 3.2 million KRW transfer to a third-party K-Bank account while blocking voice verification.",
+    "dag_stages": [
+      {
+        "id": "consent_pre_audit",
+        "label": "FR01 Consent & Pre-Audit",
+        "model": "Deterministic Guard",
+        "status": "completed",
+        "call_outcome": "deterministic_success",
+        "latency_ms": 2
+      },
+      {
+        "id": "argon_round1",
+        "label": "Round 1 Decomposition",
+        "model": "gemini-4-argon",
+        "status": "completed",
+        "call_outcome": "live_api_success",
+        "latency_ms": 8608,
+        "error": null
+      },
+      {
+        "id": "flash_critic",
+        "label": "Adversarial Critic (FR03-FR07)",
+        "model": "gemini-3.8-flash",
+        "status": "completed",
+        "call_outcome": "live_api_success",
+        "latency_ms": 5662,
+        "error": null
+      },
+      {
+        "id": "argon_round2",
+        "label": "Round 2 Self-Repair",
+        "model": "gemini-4-argon",
+        "status": "completed",
+        "call_outcome": "live_api_success",
+        "latency_ms": 19703,
+        "error": null
+      },
+      {
+        "id": "gemma_privacy",
+        "label": "PII Help Packet (FR10)",
+        "model": "gemma-4-31b-it",
+        "status": "failed",
+        "call_outcome": "failed",
+        "latency_ms": 20001,
+        "error": "TimeoutError: "
+      },
+      {
+        "id": "companion_media",
+        "label": "Visual + Voice Studio",
+        "model": "gemini-nano-banana-2.1 + gemini-3.8-flash-tts",
+        "status": "partial_failure",
+        "call_outcome": "img:failed | tts:live_api_success",
+        "latency_ms": 22001
+      }
+    ]
+  },
+  "test_C_model_timeout_failure": {
+    "pass": false,
+    "elapsed_sec": 44.44,
+    "overall_status": "partial_failure",
+    "risk_tier": "MODERATE_AMBIGUOUS",
+    "claims_count": 0,
+    "dag_stages": [
+      {
+        "id": "consent_pre_audit",
+        "label": "FR01 Consent & Pre-Audit",
+        "model": "Deterministic Guard",
+        "status": "completed",
+        "call_outcome": "deterministic_success",
+        "latency_ms": 2
+      },
+      {
+        "id": "argon_round1",
+        "label": "Round 1 Decomposition",
+        "model": "gemini-4-argon",
+        "status": "failed",
+        "call_outcome": "failed",
+        "latency_ms": 0,
+        "error": "TimeoutError: Simulated TimeoutError on argon_round1 for controlled failure verification"
+      },
+      {
+        "id": "flash_critic",
+        "label": "Adversarial Critic (FR03-FR07)",
+        "model": "gemini-3.8-flash",
+        "status": "completed",
+        "call_outcome": "live_api_success",
+        "latency_ms": 5841,
+        "error": null
+      },
+      {
+        "id": "argon_round2",
+        "label": "Round 2 Self-Repair",
+        "model": "gemini-4-argon",
+        "status": "completed",
+        "call_outcome": "live_api_success",
+        "latency_ms": 15515,
+        "error": null
+      },
+      {
+        "id": "gemma_privacy",
+        "label": "PII Help Packet (FR10)",
+        "model": "gemma-4-31b-it",
+        "status": "failed",
+        "call_outcome": "failed",
+        "latency_ms": 20001,
+        "error": "TimeoutError: "
+      },
+      {
+        "id": "companion_media",
+        "label": "Visual + Voice Studio",
+        "model": "gemini-nano-banana-2.1 + gemini-3.8-flash-tts",
+        "status": "partial_failure",
+        "call_outcome": "img:failed | tts:live_api_success",
+        "latency_ms": 22001
+      }
+    ]
+  },
+  "test_D_deployed_ui_and_video": {
+    "pass": true,
+    "ui_elapsed_sec": 66.74,
+    "summary_headline": "Unverified mobile SMS claiming to be from a Seoul Central Prosecutor investigator demands an urgent 3,200,000 KRW transfer, an APK installation, and a verification blockade.",
+    "preset_leak_free": true,
+    "demo_mp4_size_bytes": 4730365
+  }
+}

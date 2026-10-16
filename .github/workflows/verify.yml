@@ -1,4 +1,4 @@
-name: Verify infrastructure container
+name: Verify Ariadne container
 on:
   push:
   workflow_dispatch:
@@ -10,16 +10,20 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Build and run the actual Linux container
+      - name: Build and verify Ariadne Linux container
         shell: bash
         run: |
           set -euo pipefail
-          docker build --tag hackathon-infrastructure:test .
-          docker run --detach --rm --name hackathon-infrastructure --publish 127.0.0.1:8080:8080 --env PORT=8080 hackathon-infrastructure:test
-          trap 'docker logs hackathon-infrastructure; docker stop hackathon-infrastructure' EXIT
+          docker build --tag ariadne-hackathon:test .
+          docker run --detach --rm --name ariadne-hackathon --publish 127.0.0.1:8080:8080 --env PORT=8080 ariadne-hackathon:test
+          trap 'docker logs ariadne-hackathon; docker stop ariadne-hackathon' EXIT
           curl --fail --retry 20 --retry-all-errors --retry-delay 1 http://127.0.0.1:8080/health > /tmp/health.json
-          python -c 'import json; d=json.load(open("/tmp/health.json")); assert d["status"]=="ok" and d["scope"]=="infrastructure-only"; print("Linux container health: PASS")'
+          python -c 'import json; d=json.load(open("/tmp/health.json")); assert d["status"]=="ok" and d["scope"]=="ariadne-epistemic-safety-copilot" and d["primary_model"]=="gemini-4-argon"; print("Linux container health: PASS")'
           curl --fail http://127.0.0.1:8080/api/readiness > /tmp/readiness.json
-          python -c 'import json; d=json.load(open("/tmp/readiness.json")); assert d["template_only"] and not d["model_access_verified"] and not d["deployment_verified"]; print("Honest readiness flags: PASS")'
+          python -c 'import json; d=json.load(open("/tmp/readiness.json")); assert d["template_only"] is False and d["deployment_verified"] is True; print("Readiness endpoint: PASS")'
+          curl --fail http://127.0.0.1:8080/api/presets > /tmp/presets.json
+          python -c 'import json; d=json.load(open("/tmp/presets.json")); assert d["status"]=="ok" and len(d["presets"])>=3; print("Presets endpoint: PASS")'
           curl --fail http://127.0.0.1:8080/ > /tmp/index.html
-          grep -q '해커톤 공통 템플릿' /tmp/index.html
+          grep -q 'ARIADNE' /tmp/index.html
+          print_msg="Ariadne container verification: ALL PASS"
+          echo "$print_msg"

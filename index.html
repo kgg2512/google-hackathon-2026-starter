@@ -81,16 +81,22 @@
         </span>
       </div>
 
-      <!-- WORKSPACE / ARCHITECTURE WALKTHROUGH TAB SWITCHER (PILLAR 7) -->
-      <div class="flex items-center gap-2 bg-slate-900 p-1 rounded-xl border border-slate-800" role="tablist" aria-label="Workspace Views">
-        <button id="tabBtnWorkspace" onclick="switchMainTab('workspace')" role="tab" aria-selected="true"
-          class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-cyan-500 text-slate-950 shadow">
-          🛡️ Live 7-Pillar Safety Workspace
-        </button>
-        <button id="tabBtnArchitecture" onclick="switchMainTab('architecture')" role="tab" aria-selected="false"
-          class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-300 hover:text-white">
-          📐 Pillar 7: System Architecture &amp; 1M Pipeline Walkthrough
-        </button>
+      <!-- WORKSPACE / ARCHITECTURE WALKTHROUGH TAB SWITCHER (PILLAR 7) & DEMO VIDEO -->
+      <div class="flex flex-wrap items-center gap-2">
+        <a id="btnWatchDemoVideo" href="/demo.mp4" target="_blank" rel="noopener"
+          class="px-3.5 py-1.5 rounded-xl text-xs font-extrabold bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-400/50 transition flex items-center gap-1.5 shadow">
+          <span>🎬 Watch Live Mode Demo Video (MP4)</span>
+        </a>
+        <div class="flex items-center gap-2 bg-slate-900 p-1 rounded-xl border border-slate-800" role="tablist" aria-label="Workspace Views">
+          <button id="tabBtnWorkspace" onclick="switchMainTab('workspace')" role="tab" aria-selected="true"
+            class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-cyan-500 text-slate-950 shadow">
+            🛡️ Live 7-Pillar Safety Workspace
+          </button>
+          <button id="tabBtnArchitecture" onclick="switchMainTab('architecture')" role="tab" aria-selected="false"
+            class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-300 hover:text-white">
+            📐 Pillar 7: System Architecture &amp; 1M Pipeline Walkthrough
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -106,16 +112,20 @@
         <div class="flex items-center gap-2">
           <span class="pillar-badge bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">Pillar 1</span>
           <h2 class="text-sm font-bold text-white uppercase tracking-wider">
-            Named Persona Scenarios &amp; Dual-Mode Execution (0.2s Pre-Verified Showcase + Live Gemini SSE)
+            Named Persona Scenarios &amp; Dual-Mode Execution (Static Fixture Showcase vs. Real-Time Live Gemini SSE)
           </h2>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
-          <span id="activeModeBadge" class="text-xs px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono">
-            Mode: Instant Pre-Verified Showcase (198 ms)
+          <span id="activeModeBadge" class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-amber-300 border border-amber-500/30 font-mono">
+            Mode: Static Pre-Verified Fixture (0 ms API)
           </span>
           <button id="btnInstantShowcase" onclick="triggerAnalysis('showcase')"
-            class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40 transition flex items-center gap-1.5">
-            <span>⚡ Load Pre-Verified Showcase (0.2s)</span>
+            class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40 transition flex items-center gap-1.5">
+            <span>⚡ Load Pre-Verified Fixture</span>
+          </button>
+          <button id="btnLoadCustomScam" onclick="loadBrandNewCustomScamInput()"
+            class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/50 transition flex items-center gap-1.5">
+            <span>🧪 Load Brand-New Custom Input (Non-Preset)</span>
           </button>
           <button id="btnRunLiveSSE" onclick="triggerAnalysis('live')"
             class="px-4 py-1.5 rounded-lg text-xs font-extrabold bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 text-slate-950 shadow-lg shadow-cyan-500/20 transition flex items-center gap-1.5">
@@ -210,7 +220,7 @@
             Studio: <strong>gemini-nano-banana-2.1</strong> + <strong>gemini-3.8-flash-tts</strong>
           </span>
           <span id="hudTotalLatency" class="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">
-            Total: 198 ms
+            Mode: Static Fixture
           </span>
         </div>
       </div>
@@ -219,10 +229,11 @@
       <div id="dagStagesGrid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-2.5">
         <!-- Populated dynamically by JS -->
       </div>
-      <div id="liveStreamStatusBanner" class="mt-2.5 text-xs font-mono text-slate-400 bg-slate-950/70 px-3 py-1.5 rounded-lg border border-slate-800 flex items-center justify-between">
-        <span id="liveStreamStatusText">Ready — Showing Pre-Verified Multi-Model Bundle. Click "Run Live Gemini 4 Argon + Companions SSE Pipeline" to stream live API calls.</span>
+      <div id="liveStreamStatusBanner" class="mt-2.5 text-xs font-mono text-slate-300 bg-slate-950/70 px-3 py-1.5 rounded-lg border border-slate-800 flex flex-wrap items-center justify-between gap-2">
+        <span id="liveStreamStatusText">Ready — Showing Pre-Verified Static Fixture. Click "🧪 Load Brand-New Custom Input" then "🚀 Run Live Gemini 4 Argon + Companions SSE Pipeline" for real-time API execution.</span>
         <span id="sessionIdBadge" class="text-cyan-400">Session: showcase_init</span>
       </div>
+      <div id="modelCallReportBanner" class="hidden mt-2 text-[11px] font-mono bg-slate-950/90 px-3 py-2 rounded-lg border border-cyan-500/30 text-slate-200"></div>
     </section>
 
     <!-- MAIN 12-COLUMN WORKBENCH GRID -->
@@ -241,8 +252,8 @@
                 Scoped Consent &amp; 1M Context Meter
               </h2>
             </div>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
-              Implicit Cache 95% OFF
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+              Prefix &ge; 4,096 Tok
             </span>
           </div>
 
@@ -250,15 +261,15 @@
           <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
             <div class="flex items-center justify-between text-xs">
               <span class="text-slate-300 font-semibold">1M Unified Context Window Utilization</span>
-              <span id="contextTokensReadout" class="font-mono text-cyan-300 font-bold">21,480 / 1,000,000 tok</span>
+              <span id="contextTokensReadout" class="font-mono text-cyan-300 font-bold">4,850 / 1,000,000 tok</span>
             </div>
             <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden flex">
-              <div class="bg-cyan-400 h-full" style="width: 18%" title="Static Epistemic Constitution Prefix (>4,096 tokens, 95% Implicit Cache Discount)"></div>
+              <div class="bg-cyan-400 h-full" style="width: 18%" title="Static Epistemic Constitution Prefix (>=4,096 tokens structured for Gemini API implicit caching)"></div>
               <div class="bg-emerald-400 h-full" style="width: 6%" title="Multimodal Touchpoints & Pre-Audit Evidence"></div>
             </div>
             <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono">
-              <span>Static Prefix: <strong class="text-cyan-300">21,255 tok (&gt;4,096 min)</strong></span>
-              <span class="text-emerald-300">● 95% Implicit Cache Active</span>
+              <span id="staticPrefixTokensText">Static Prefix: <strong class="text-cyan-300">&ge; 4,096 tok</strong></span>
+              <span class="text-slate-300">Upstream Cache Managed by API</span>
             </div>
           </div>
 
@@ -426,7 +437,7 @@
               </h2>
             </div>
             <span id="epistemicScoreLiftBadge" class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
-              Epistemic Rigor Score: 64 &rarr; 98 (+34)
+              Qualitative Critic Audit: Round 1 &rarr; Critic &rarr; Round 2
             </span>
           </div>
 
@@ -452,7 +463,7 @@
             <div class="p-3 rounded-xl bg-slate-950/90 border border-rose-500/30 space-y-1.5">
               <div class="flex items-center justify-between text-xs">
                 <span class="font-bold text-rose-300">Round 1 Initial Draft (gemini-4-argon • thinking_level="medium")</span>
-                <span id="r1ScoreText" class="font-mono text-rose-400">Unrepaired Score: 64/100</span>
+                <span id="r1ScoreText" class="font-mono text-rose-400">Stage 1: Unrepaired Decomposition</span>
               </div>
               <p id="r1SummaryText" class="text-xs text-slate-300"></p>
               <div id="r1VulnerabilitiesList" class="space-y-1 pt-1"></div>
@@ -471,7 +482,7 @@
             <div class="p-3 rounded-xl bg-slate-950/90 border border-emerald-500/40 space-y-1.5">
               <div class="flex items-center justify-between text-xs">
                 <span class="font-bold text-emerald-300">Round 2 Self-Corrected Output (gemini-4-argon • thinking_level="high")</span>
-                <span id="r2ScoreText" class="font-mono text-emerald-400 font-bold">Verified Score: 98/100</span>
+                <span id="r2ScoreText" class="font-mono text-emerald-400 font-bold">Stage 3: Critic Defects Repaired</span>
               </div>
               <div id="r2RepairedHighlightsList" class="space-y-1 text-xs text-slate-200"></div>
             </div>
@@ -593,8 +604,9 @@
               📋 Copy Safe Reply
             </button>
             <button onclick="commitHitlDecision('revoke_and_purge')"
-              class="flex-1 py-1.5 rounded-lg bg-rose-950/60 hover:bg-rose-900/70 text-[11px] font-bold text-rose-300 border border-rose-500/40">
-              🗑️ Revoke &amp; Purge (FR01)
+              class="flex-1 py-1.5 rounded-lg bg-rose-950/60 hover:bg-rose-900/70 text-[11px] font-bold text-rose-300 border border-rose-500/40"
+              title="Clears active container EPHEMERAL_SESSIONS memory (upstream API logs governed by Google Cloud retention)">
+              🗑️ Clear Container Session (FR01)
             </button>
           </div>
 
@@ -640,7 +652,7 @@
           <div class="text-xs font-mono text-cyan-400">STAGE 2 • ROUND 1 ARCHITECT</div>
           <div class="font-bold text-white text-sm">gemini-4-argon (thinking_level="medium")</div>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Ingests the entire multi-channel bundle inside the <strong>1M Unified Context Window</strong> using a <strong>21,255-token Static Epistemic Constitution Prefix</strong> (activating <strong>95% Implicit Context Caching</strong>).
+            Ingests the multi-channel bundle inside the <strong>1M Unified Context Window</strong> using a <strong>&ge;4,096-token Static Epistemic Constitution Prefix</strong> structured for Gemini API implicit caching eligibility.
           </p>
         </div>
 
@@ -815,20 +827,26 @@
 
     function renderDagStages(stages, totalMs) {
       const grid = document.getElementById("dagStagesGrid");
-      document.getElementById("hudTotalLatency").textContent = `Total: ${totalMs || 198} ms`;
+      document.getElementById("hudTotalLatency").textContent = `Total: ${totalMs !== undefined ? totalMs : 0} ms`;
       grid.innerHTML = (stages || []).map(st => {
         const isRunning = st.status === "running";
-        const isDone = st.status === "completed";
+        const isDone = st.status === "completed" || st.status === "fixture_loaded";
+        const isFailed = st.status === "failed" || st.status === "partial_failure";
         const borderCls = isRunning
           ? "border-cyan-400 bg-cyan-950/30"
-          : isDone
-            ? "border-emerald-500/40 bg-slate-900/90"
-            : "border-slate-800 bg-slate-950/60";
+          : isFailed
+            ? "border-rose-500/60 bg-rose-950/30"
+            : isDone
+              ? "border-emerald-500/40 bg-slate-900/90"
+              : "border-slate-800 bg-slate-950/60";
         const dotCls = isRunning
           ? "bg-cyan-400 pulse-dot"
-          : isDone
-            ? "bg-emerald-400"
-            : "bg-slate-600";
+          : isFailed
+            ? "bg-rose-500"
+            : isDone
+              ? "bg-emerald-400"
+              : "bg-slate-600";
+        const outcomeLabel = st.call_outcome || st.status || "";
         return `
           <div class="p-2.5 rounded-xl border ${borderCls} flex flex-col justify-between">
             <div class="flex items-center justify-between gap-1">
@@ -837,9 +855,12 @@
                 ${escapeHtml(st.label)}
               </span>
             </div>
-            <div class="mt-2 flex items-center justify-between text-[10px] font-mono text-slate-400">
+            <div class="mt-1.5 flex items-center justify-between text-[10px] font-mono text-slate-400">
               <span class="truncate text-cyan-300">${escapeHtml(st.model)}</span>
-              <span class="text-emerald-300 font-bold">${st.latency_ms !== undefined ? st.latency_ms + ' ms' : '...'}</span>
+              <span class="${isFailed ? 'text-rose-300' : 'text-emerald-300'} font-bold">${st.latency_ms !== undefined ? st.latency_ms + ' ms' : '...'}</span>
+            </div>
+            <div class="mt-0.5 text-[9px] font-mono ${isFailed ? 'text-rose-300' : 'text-slate-400'} truncate">
+              ${escapeHtml(outcomeLabel)}
             </div>
           </div>
         `;
@@ -855,11 +876,11 @@
       document.getElementById("personaAccessibilityDisplay").textContent = (persona.accessibility_needs || "").slice(0, 42);
 
       const telemetry = bundle.telemetry || {};
-      const totalMs = telemetry.total_latency_ms || 198;
+      const totalMs = telemetry.total_latency_ms !== undefined ? telemetry.total_latency_ms : 0;
       document.getElementById("activeModeBadge").textContent = `Mode: ${modeLabel} (${totalMs} ms)`;
-      document.getElementById("sessionIdBadge").textContent = `Session: ${bundle.session_id || 'showcase_ready'}`;
+      document.getElementById("sessionIdBadge").textContent = `Session: ${bundle.session_id || 'active'}`;
       document.getElementById("contextTokensReadout").textContent =
-        `${(telemetry.total_context_tokens || 21480).toLocaleString()} / 1,000,000 tok`;
+        `${(telemetry.total_context_tokens || 4250).toLocaleString()} / 1,000,000 tok`;
 
       renderDagStages(telemetry.stages || [], totalMs);
 
@@ -912,27 +933,30 @@
       const comp = bundle.companion_outputs || {};
       const vCard = comp.visual_card || {};
       const vVoice = comp.voice_briefing || {};
-      document.getElementById("companionVisualImg").src = vCard.image_data_uri || bundle.evidence_preview_svg || "";
+      const imgEl = document.getElementById("companionVisualImg");
+      if (vCard.image_data_uri || bundle.evidence_preview_svg) {
+        imgEl.src = vCard.image_data_uri || bundle.evidence_preview_svg;
+        imgEl.classList.remove("hidden");
+      } else {
+        imgEl.removeAttribute("src");
+        imgEl.classList.add("hidden");
+      }
       document.getElementById("companionVisualCaption").textContent =
-        `${vCard.generation_mode || IMAGE_MODEL}: ${vCard.caption || ''}`;
+        `${vCard.generation_mode || vCard.model || 'Visual Card'}: ${vCard.caption || ''}`;
 
-      document.getElementById("companionAudioTranscript").textContent = vVoice.transcript || bundle.tts_briefing_script || "";
+      document.getElementById("companionAudioTranscript").textContent = vVoice.transcript || bundle.tts_briefing_script || "(No audio transcript generated)";
+      const audioEl = document.getElementById("companionAudioPlayer");
       if (vVoice.audio_b64) {
-        const audioEl = document.getElementById("companionAudioPlayer");
         audioEl.src = `data:${vVoice.audio_mime || 'audio/wav'};base64,${vVoice.audio_b64}`;
+      } else {
+        audioEl.removeAttribute("src");
       }
 
-      // Pillar 5 Verification Diff
-      const s1 = critic.round1_epistemic_score || 64;
-      const s2 = critic.round2_epistemic_score || 98;
-      document.getElementById("epistemicScoreLiftBadge").textContent =
-        `Epistemic Rigor Score: ${s1} → ${s2} (+${s2 - s1})`;
-      document.getElementById("r1ScoreText").textContent = `Draft Score: ${s1}/100`;
-      document.getElementById("r2ScoreText").textContent = `Verified Score: ${s2}/100`;
-      document.getElementById("r1SummaryText").textContent = r1.summary || "";
+      // Pillar 5 Verification Diff (Guard against null score elements)
+      document.getElementById("r1SummaryText").textContent = r1.summary || (r1.error ? `[Round 1 Failed: ${r1.error}]` : "(No Round 1 summary generated)");
       document.getElementById("r1VulnerabilitiesList").innerHTML = (r1.flawed_assumptions || []).map(f =>
         `<div class="text-[11px] text-rose-300 flex items-start gap-1.5"><span>⚠️</span><span>${escapeHtml(f)}</span></div>`
-      ).join("");
+      ).join("") || `<div class="text-[11px] text-slate-400">None flagged.</div>`;
 
       document.getElementById("criticDefectsContainer").innerHTML = (critic.defects_found || []).map(d => `
         <div class="p-2 rounded-lg bg-slate-900 border border-amber-500/30 space-y-1">
@@ -943,16 +967,12 @@
           <p class="text-xs text-slate-200">${escapeHtml(d.defect)}</p>
           <p class="text-[11px] text-emerald-300 font-mono">&rarr; Fix: ${escapeHtml(d.repair_directive)}</p>
         </div>
-      `).join("");
+      `).join("") || `<div class="text-[11px] text-slate-400 p-2">${escapeHtml(critic.verification_status || 'No critic defects found.')}</div>`;
 
-      const highlights = r2.repaired_highlights || [
-        "Isolated in-message phone numbers and links inside Quarantined Circular Verification Traps (FR05).",
-        "Separated Observed Account ID from Claimed Persona across all touchpoints (FR04).",
-        "Eliminated numerical probability claims in favor of explicit Observed / Claimed / Unverified epistemic tags (FR07)."
-      ];
+      const highlights = r2.repaired_highlights || [];
       document.getElementById("r2RepairedHighlightsList").innerHTML = highlights.map(h =>
         `<div class="flex items-start gap-1.5"><span>✅</span><span>${escapeHtml(h)}</span></div>`
-      ).join("");
+      ).join("") || `<div class="text-[11px] text-slate-400">${r2.error ? escapeHtml('Round 2 Failed: ' + r2.error) : 'No highlights generated.'}</div>`;
 
       // Claims Ledger (FR07)
       document.getElementById("claimsLedgerContainer").innerHTML = (r2.epistemic_claims_ledger || []).map(c => {
@@ -971,7 +991,7 @@
             <p class="text-[11px] text-slate-400">${escapeHtml(c.provenance_note)}</p>
           </div>
         `;
-      }).join("");
+      }).join("") || `<div class="text-xs text-slate-400 p-2">No claims ledger entries generated.</div>`;
 
       // FR05 Quarantined Traps & Out-of-Band Anchors
       document.getElementById("quarantinedTrapsList").innerHTML = (r2.quarantined_circular_traps || []).map(t => `
@@ -979,7 +999,7 @@
           <div class="font-mono font-bold text-rose-300 text-[11px]">${escapeHtml(t.artifact)}</div>
           <div class="text-[11px] text-slate-300 mt-0.5">${escapeHtml(t.why_quarantined)}</div>
         </div>
-      `).join("");
+      `).join("") || `<div class="text-[11px] text-slate-400 p-2">No circular verification traps detected in this input.</div>`;
 
       document.getElementById("outOfBandAnchorsList").innerHTML = (r2.out_of_band_anchors || []).map(a => `
         <div class="p-2 rounded bg-slate-950/90 border border-emerald-500/30 space-y-1">
@@ -989,19 +1009,19 @@
           <div class="font-mono text-[11px] text-white bg-slate-900 px-2 py-0.5 rounded">${escapeHtml(a.target)}</div>
           <p class="text-[11px] text-slate-300 leading-snug">${escapeHtml(a.action_instruction)}</p>
         </div>
-      `).join("");
+      `).join("") || `<div class="text-[11px] text-slate-400 p-2">No out-of-band anchors generated.</div>`;
 
       // Pillar 6 Safe Draft & Help Packet
-      document.getElementById("safeResponseDraftText").textContent = r2.safe_response_draft || "";
+      document.getElementById("safeResponseDraftText").textContent = r2.safe_response_draft || "(No response draft generated)";
       const hp = r2.pii_minimized_help_packet || {};
-      document.getElementById("helpPacketSummaryText").textContent = hp.redacted_summary || "";
+      document.getElementById("helpPacketSummaryText").textContent = hp.redacted_summary || (hp.error ? `[PII Redactor Failed: ${hp.error}]` : "(No help packet generated)");
 
       // Setup Canvas Graph
       setupProvenanceGraphData(r2.provenance_graph || { nodes: [], edges: [] });
     }
 
     function updateRiskHeadlineArea(r2) {
-      const band = r2.epistemic_risk_band || "CRITICAL_HIGH";
+      const band = r2.epistemic_risk_band || "UNVERIFIED";
       const card = document.getElementById("riskHeadlineCard");
       const badge = document.getElementById("epistemicRiskBandBadge");
       badge.textContent = band;
@@ -1229,27 +1249,63 @@
       reader.readAsDataURL(file);
     }
 
+    function loadBrandNewCustomScamInput() {
+      const sampleText = "[SMS from +82-10-8421-0093 claiming to be 'Seoul Central Prosecutor Cyber Investigator Kim']: Urgent notice regarding case #2026-8812. A bank account under your name was linked to unauthorized transfers. Do NOT contact your bank branch. Immediately transfer 3,200,000 KRW to protective inspection account 110-994-882103 or install https://safe-court-inspect.kr/guard.apk and call +82-2-5591-0044 within 20 minutes.";
+      document.getElementById("customTouchpointText").value = sampleText;
+      appendCustomTouchpoint();
+    }
+
     function appendCustomTouchpoint() {
       const txt = document.getElementById("customTouchpointText").value.trim();
       if (!txt && !CUSTOM_MEDIA_B64) return;
-      if (!CURRENT_BUNDLE) return;
 
       const newTp = {
         id: "tp_custom_" + Date.now().toString().slice(-4),
-        channel: CUSTOM_MEDIA_MIME ? `Multimodal Upload (${CUSTOM_MEDIA_MIME})` : "User Pasted Message",
+        channel: CUSTOM_MEDIA_MIME ? `Multimodal Upload (${CUSTOM_MEDIA_MIME})` : "User Custom Input",
         timestamp: "Just added",
-        observed_sender_id: "Unverified Input Source",
-        claimed_persona: "In-Message Claim",
+        observed_sender_id: "Unverified Custom Sender",
+        claimed_persona: "In-Message Claimed Sender",
         modality: CUSTOM_MEDIA_MIME || "text",
         content: txt || "[Attached multimodal file artifact for epistemic inspection]",
         extracted_urls: (txt.match(/https?:\/\/[^\s]+/g) || []),
         extracted_phones: (txt.match(/\+?\d[\d\-\s]{7,}\d/g) || []),
       };
 
-      CURRENT_BUNDLE.touchpoints = CURRENT_BUNDLE.touchpoints || [];
-      CURRENT_BUNDLE.touchpoints.push(newTp);
+      // Switch to pure custom mode (zero preset touchpoints or known_contacts mixed in)
+      CURRENT_PRESET_ID = "custom";
+      updatePresetButtonStyles("custom");
+      CURRENT_BUNDLE = {
+        id: "custom_live",
+        session_id: "pending_live_analysis",
+        persona: {
+          name: "Custom Live Scenario User",
+          age: "--",
+          role: "Live Consented Input Evaluation",
+          context: "Evaluating brand-new custom input (isolated from presets). Click 'Run Live Gemini 4 Argon + Companions SSE' above.",
+          accessibility_needs: "High-Contrast Provenance Graph + Calm Voice Briefing",
+        },
+        touchpoints: [newTp],
+        known_contacts: [],
+        round1_draft: { summary: "Pending live Gemini 4 Argon execution...", flawed_assumptions: [] },
+        critic_audit: { verification_status: "Pending live Gemini 3.8 Flash Critic...", defects_found: [] },
+        round2_repaired: {
+          epistemic_risk_band: "PENDING_LIVE_ANALYSIS",
+          risk_headline: "Custom input staged — click 'Run Live Gemini 4 Argon + Companions SSE' to execute live analysis.",
+          executive_summary: "Preset data cleared. Ready for live end-to-end Gemini API evaluation.",
+          repaired_highlights: [],
+          account_vs_persona_matrix: [],
+          epistemic_claims_ledger: [],
+          quarantined_circular_traps: [],
+          out_of_band_anchors: [],
+          provenance_graph: { nodes: [], edges: [] },
+          safe_response_draft: "",
+          pii_minimized_help_packet: { redacted_summary: "" },
+        },
+        companion_outputs: { visual_card: {}, voice_briefing: {} },
+        telemetry: { total_latency_ms: 0, total_context_tokens: 4250, stages: [] },
+      };
       document.getElementById("customTouchpointText").value = "";
-      renderBundle(CURRENT_BUNDLE, "Custom Evidence Added (Ready for Live SSE)");
+      renderBundle(CURRENT_BUNDLE, "Custom Input Staged (Ready for Live SSE)");
     }
 
     async function triggerAnalysis(mode) {
@@ -1263,9 +1319,16 @@
       }
       statusText.className = "text-cyan-300";
 
+      // If user typed text in customTouchpointText without clicking '+ Add Touchpoint', stage it automatically on Live run!
+      const pendingCustomText = document.getElementById("customTouchpointText").value.trim();
+      if (mode === "live" && pendingCustomText) {
+        appendCustomTouchpoint();
+      }
+
       if (mode === "showcase") {
-        selectPreset(CURRENT_PRESET_ID);
-        statusText.textContent = "⚡ Loaded Pre-Verified Showcase Bundle in <200ms.";
+        const targetPreset = (CURRENT_PRESET_ID === "custom") ? "family_voice_urgency" : CURRENT_PRESET_ID;
+        selectPreset(targetPreset);
+        statusText.textContent = "⚡ Loaded Static Pre-Verified Fixture (No live API call made).";
         return;
       }
 
@@ -1280,7 +1343,7 @@
         mode: "live",
         consent_granted: consentGranted,
         touchpoints: CURRENT_BUNDLE ? CURRENT_BUNDLE.touchpoints : null,
-        known_contacts: CURRENT_BUNDLE ? CURRENT_BUNDLE.known_contacts : null,
+        known_contacts: CURRENT_BUNDLE ? CURRENT_BUNDLE.known_contacts : [],
         custom_media_mime: CUSTOM_MEDIA_MIME,
         custom_media_b64: CUSTOM_MEDIA_B64,
       };
@@ -1312,8 +1375,9 @@
             if (evt.type === "stage_update") {
               statusText.textContent = `[Live SSE] Stage ${evt.stage_id}: ${evt.detail || evt.status} ${evt.latency_ms ? '(' + evt.latency_ms + ' ms)' : ''}`;
             } else if (evt.type === "final_result" && evt.bundle) {
-              renderBundle(evt.bundle, "Live Multi-Model SSE");
-              statusText.textContent = `✅ Live Multi-Model SSE Pipeline Completed in ${evt.bundle.telemetry.total_latency_ms} ms.`;
+              const overallSt = (evt.bundle.telemetry && evt.bundle.telemetry.overall_status) || "completed";
+              renderBundle(evt.bundle, `Live Multi-Model SSE [${overallSt}]`);
+              statusText.textContent = `✅ Live Multi-Model SSE Pipeline (${overallSt}) in ${evt.bundle.telemetry.total_latency_ms} ms.`;
             } else if (evt.type === "error") {
               statusText.textContent = `⛔ ${evt.message}`;
             }
