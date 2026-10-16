@@ -1,0 +1,39 @@
+{
+  "scope": "offline snapshot control flow only",
+  "network": "blocked; no model calls",
+  "checks": [
+    {
+      "check": "health contract",
+      "passed": true
+    },
+    {
+      "check": "readiness limitation reproduced",
+      "passed": true
+    },
+    {
+      "check": "all-stage failure stays failed",
+      "passed": true
+    },
+    {
+      "check": "failed synthesis contains no claims or anchors",
+      "passed": true
+    },
+    {
+      "check": "custom input isolation on failure",
+      "passed": true
+    },
+    {
+      "check": "explicit consent rejection",
+      "passed": true
+    },
+    {
+      "check": "mocked success isolates custom bundle",
+      "passed": true
+    },
+    {
+      "check": "mode contract mismatch reproduced",
+      "passed": true
+    }
+  ],
+  "all_checks_passed": true
+}

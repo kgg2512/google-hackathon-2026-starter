@@ -1,0 +1,77 @@
+{
+  "source_base_commit": "25ce8588a0d17528b8c47302fb56f60a026b9fa8",
+  "stable_comparison_utc": "2026-10-16T06:43:10Z",
+  "note": "SHA-256 fingerprints refer to original local bytes and published bytes. This is a sanitized post-deadline snapshot, not a deployed revision. No credentials, env files, private logs or raw conversations are included.",
+  "files": [
+    {
+      "source_path": "app.py",
+      "archive_path": "archive/local-2026-10-16/app.py",
+      "original_sha256": "2830fbf60a3c22229838092cceb67048ac55f7f35730f5a5e3c1135af3d6ba31",
+      "published_sha256": "ebfaffa7a210f226045d162848afd260085cf57ecb6e63961f4061dc2aae5703",
+      "sanitized": true
+    },
+    {
+      "source_path": "index.html",
+      "archive_path": "archive/local-2026-10-16/index.html",
+      "original_sha256": "7207b5adcb12e98646fac243030d48caf6ff593d2ff096af1843450efaaab118",
+      "published_sha256": "a31f48f68efdea607817a72b239e4b16b2d0cf923e3d52d02d692fdb98e14e87",
+      "sanitized": true
+    },
+    {
+      "source_path": "scenarios.py",
+      "archive_path": "archive/local-2026-10-16/scenarios.py",
+      "original_sha256": "bd7aa4fbc47857ea54f020ec3f9aae3b5775ad1e83c279d3039742a74c82fc74",
+      "published_sha256": "29e47145824d22d244aef5124404e160435173cb018f518c7903ef962bc4abee",
+      "sanitized": true
+    },
+    {
+      "source_path": "Dockerfile",
+      "archive_path": "archive/local-2026-10-16/Dockerfile",
+      "original_sha256": "00e27b061256929d95276c385ce566b7bedd6bfd98a47574e0580433326a04bf",
+      "published_sha256": "00e27b061256929d95276c385ce566b7bedd6bfd98a47574e0580433326a04bf",
+      "sanitized": false
+    },
+    {
+      "source_path": "requirements.txt",
+      "archive_path": "archive/local-2026-10-16/requirements.txt",
+      "original_sha256": "4248c858e36e0675b974d24e07a141800cee6003318f64a39dd306731a4ead2d",
+      "published_sha256": "4248c858e36e0675b974d24e07a141800cee6003318f64a39dd306731a4ead2d",
+      "sanitized": false
+    },
+    {
+      "source_path": "requirements.lock.txt",
+      "archive_path": "archive/local-2026-10-16/requirements.lock.txt",
+      "original_sha256": "94851aada9c634518062033d416c364e9f255ee48f5f047345a7b1a4bedda44c",
+      "published_sha256": "94851aada9c634518062033d416c364e9f255ee48f5f047345a7b1a4bedda44c",
+      "sanitized": false
+    },
+    {
+      "source_path": ".dockerignore",
+      "archive_path": "archive/local-2026-10-16/.dockerignore",
+      "original_sha256": "0254d33c8eab8e565fe65e14bd5b6340ad9e97bf0d4764eb5d58fb364c0760ba",
+      "published_sha256": "0254d33c8eab8e565fe65e14bd5b6340ad9e97bf0d4764eb5d58fb364c0760ba",
+      "sanitized": false
+    },
+    {
+      "source_path": ".gcloudignore",
+      "archive_path": "archive/local-2026-10-16/.gcloudignore",
+      "original_sha256": "af9c207c5e8902cf39229cd0cffb4b6251fc16e5b721536e8b5912e228b02389",
+      "published_sha256": "af9c207c5e8902cf39229cd0cffb4b6251fc16e5b721536e8b5912e228b02389",
+      "sanitized": false
+    },
+    {
+      "source_path": ".gitignore",
+      "archive_path": "archive/local-2026-10-16/.gitignore",
+      "original_sha256": "ab904cdf71022e781ccfd8292612d935bf08217fe071d0e8f15ee9abf514e0bf",
+      "published_sha256": "ab904cdf71022e781ccfd8292612d935bf08217fe071d0e8f15ee9abf514e0bf",
+      "sanitized": false
+    },
+    {
+      "source_path": ".github/workflows/verify.yml",
+      "archive_path": "archive/local-2026-10-16/workflow-verify.yml.txt",
+      "original_sha256": "dcb40f7087d6068c10c6f8bbcf9602c22408e70653ac233f98376b0d06a82663",
+      "published_sha256": "dcb40f7087d6068c10c6f8bbcf9602c22408e70653ac233f98376b0d06a82663",
+      "sanitized": false
+    }
+  ]
+}
