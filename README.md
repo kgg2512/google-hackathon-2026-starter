@@ -26,7 +26,7 @@ Older adults, families, and small business staff increasingly face coordinated m
 
 ## 2. Configured Google AI Roles
 
-Ariadne is configured for a multi-stage verification pipeline on the official `google-genai` SDK (`v1.73.1`):
+Ariadne is configured for a multi-stage verification pipeline on the official `google-genai` SDK (pinned to `2.30.1` in `requirements.txt`):
 - **`gemini-4-argon` (Round 1 Decomposer & Round 2 Synthesizer)**: Extracts structured claims (`IDENTITY`, `CRISIS`, `PAYMENT_REQUEST`, `AUTHORITY`, `URGENCY`, `CHANNEL_SHIFT`), identifies unverified gaps, and synthesizes a plain-language decision brief with out-of-band verification steps.
 - **`gemini-3.8-flash` (Epistemic Safety Critic)**: Audits the Round 1 draft to ensure synthetic media is not equated with automatic fraud, authentic formatting is not equated with safety, and benign messages are not falsely flagged as emergencies.
 - **`gemma-4-31b-it` (Privacy & PII Redaction Auditor)**: Is intended to generate a redacted help packet (`help_packet`) that masks phone numbers and bank account identifiers before a user shares the summary with a trusted family member or public helpline (`112`, `1332`, `118`).

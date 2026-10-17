@@ -15,20 +15,20 @@ Source: [saved verification report](https://github.com/kgg2512/google-hackathon-
 
 A/D passing flags do not make the full suite pass. C's controlled failure flag remains false; observing an injected timeout does not mean its overall failure-handling acceptance criteria passed. No failure is relabeled as successful analysis.
 
-The README's blanket success and 10–25-second statements conflict with this report. Documentation corrections are in [Draft PR #2](https://github.com/kgg2512/google-hackathon-2026-starter/pull/2), not merged into main. [The existing status review](STATUS_REVIEW.md) gives the wider timeline.
+The baseline README's blanket success and 10–25-second statements conflict with this report. [PR #2](https://github.com/kgg2512/google-hackathon-2026-starter/pull/2) contains the documentation corrections. The PR's live state records whether they have been merged; document adoption does not resolve the recorded runtime failures. [The existing status review](STATUS_REVIEW.md) gives the wider timeline.
 
 ## Implementation and version boundaries
 
 The inspected source baseline is [dc589078](https://github.com/kgg2512/google-hackathon-2026-starter/commit/dc589078ca6dcc7c2e8e9c634ceafde696940ec6). It contains application, interface, fixtures, design/submission documents and a 4,730,365-byte demo MP4. Presence does not prove playback, current deployment, model availability, or timely submission. The existing Notion project result records a missed submission deadline; this update does not claim an accepted submission.
 
-The dependency file pins google-genai 2.30.1; prose describing 1.73.1 is stale. The afternoon preservation snapshot in [Draft PR #1](https://github.com/kgg2512/google-hackathon-2026-starter/pull/1) predates this baseline. Its historical lack of a video must not be presented as the later repository state. Eight recorded offline snapshot checks and container smoke checks cover different scopes from real model success.
+The dependency file pins google-genai 2.30.1. PR #2 corrects the baseline prose that described 1.73.1; the deployed SDK version remains unverified. The afternoon preservation snapshot in [Draft PR #1](https://github.com/kgg2512/google-hackathon-2026-starter/pull/1) predates this baseline. Its historical lack of a video must not be presented as the later repository state. Eight recorded offline snapshot checks and container smoke checks cover different scopes from real model success.
 
 ## Unfinished work
 
 1. B and C still fail their recorded criteria. Privacy-model timeouts and incomplete structured output remain unresolved.
 2. Reuse requires fresh custom-input, timeout, partial-failure and fixture-isolation checks. No such tests were rerun for this publication.
 3. Current service reachability, deployed revision parity, model access, and end-to-end behavior remain unverified.
-4. Documentation changes remain an open draft proposal. No merge, runtime change or deployment is included.
+4. Adopting the documentation through PR #2 changes only documentation. Runtime fixes, fresh model verification and deployment remain outside this change.
 
 The previous-event survey records 111 projects, zero independently reproduced services and zero fully watched demo videos. These are collection statistics, not performance evidence.
 

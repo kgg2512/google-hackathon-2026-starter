@@ -32,7 +32,7 @@ Ariadne is a multi-channel epistemic safety copilot built with `gemini-4-argon`,
 Older adults, families, and small-business staff increasingly face multi-channel social engineering attacks spanning SMS, voice calls, messenger apps, and documents. Existing deepfake detectors output a single binary "real vs. fake" score, which fails when attackers use authentic messages from compromised accounts or when benign community notices are misclassified. **Ariadne** helps users pause and verify **what is claimed**, **what remains unverified**, and **how to independently confirm identity and payment requests out-of-band**.
 
 ### 2. Google AI Implementation
-The existing implementation documentation records **Google Cloud Run** (`asia-northeast3`) and the `google-genai` SDK (`v1.73.1`):
+The implementation records **Google Cloud Run** (`asia-northeast3`); `requirements.txt` pins the `google-genai` SDK to `2.30.1`. This dependency pin does not establish the SDK version used by the current deployed service:
 - **`gemini-4-argon`**: Performs Round 1 structured epistemic claim extraction (`IDENTITY`, `CRISIS`, `PAYMENT_REQUEST`, `AUTHORITY`, `URGENCY`, `CHANNEL_SHIFT`) and Round 2 synthesis of plain-language action briefs and out-of-band verification steps.
 - **`gemini-3.8-flash`**: Acts as an Epistemic Safety Critic between Round 1 and Round 2, checking that synthetic cues are not conflated with automatic fraud, authentic formatting is not conflated with safety, and benign inputs are not over-escalated.
 - **`gemma-4-31b-it`**: Is intended to generate a PII-redacted incident summary (`help_packet`) that masks phone numbers and bank account numbers before a user shares the summary with a trusted contact or public helpline (`112`, `1332`, `118`).

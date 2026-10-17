@@ -38,8 +38,7 @@
     "B/C success criteria not met",
     "Privacy-model timeout unresolved",
     "Current deployment and source parity unverified",
-    "Fresh end-to-end model and browser verification not performed",
-    "Documentation corrections remain in unmerged draft PR 2"
+    "Fresh end-to-end model and browser verification not performed"
   ],
   "submission": "Existing Notion project record reports missed deadline; artifact presence does not establish submission",
   "survey": {
@@ -47,5 +46,6 @@
     "independently_tested_services": 0,
     "watched_full_demo_videos": 0
   },
-  "excluded": "Raw input text, personal identifiers, credentials, authentication material, local paths, raw sessions, private operational records"
+  "excluded": "Raw input text, personal identifiers, credentials, authentication material, local paths, raw sessions, private operational records",
+  "documentation_change": "PR 2 contains documentation-only corrections; consult GitHub for merge status. Document adoption does not resolve recorded runtime failures."
 }
