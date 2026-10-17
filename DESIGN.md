@@ -1,9 +1,13 @@
 # Ariadne — System Design & Architecture (`DESIGN.md`)
 
-## 1. Architectural Overview
-Ariadne is a FastAPI + Vanilla JS single-page web application deployed on **Google Cloud Run** (`https://hackathon-app-xhhkfbrg4a-du.a.run.app`) for **Track 3: Google AI for Social Good**.
+## Verification boundary · 17 October 2026
 
-### Multi-Agent Verification Pipeline (`starter/app.py`)
+This document describes architecture and intended behavior. The checked-in report records B and C as failed, A–C as `partial_failure`, and Gemma privacy-stage timeouts. Current deployment parity and live behavior were not retested in this review. See [the evidence review](docs/2026-10-17/STATUS_REVIEW.md).
+
+## 1. Architectural Overview
+Ariadne is a FastAPI + Vanilla JS single-page web application with a recorded **Google Cloud Run** deployment URL (`https://hackathon-app-xhhkfbrg4a-du.a.run.app`) for **Track 3: Google AI for Social Good**.
+
+### Multi-Agent Verification Pipeline (`app.py`)
 1. **Stage 1 — Round 1 Claim Decomposition (`gemini-4-argon`, `thinking_level="low"`)**:
    - Parses raw user touchpoints and optional user-provided known contacts into a structured JSON `claims_ledger`, `unverified_gaps`, and `risk_tier` (`VERIFIED_LOW`, `MODERATE_CONCERN`, `ELEVATED_RISK`, `HIGH_CONCERN_PAUSE`).
    - Enforces strict input isolation: when `is_custom=True`, Ariadne never merges preset touchpoints or preset contacts.
@@ -13,7 +17,7 @@ Ariadne is a FastAPI + Vanilla JS single-page web application deployed on **Goog
 3. **Stage 3 — Round 2 Verified Synthesis (`gemini-4-argon`, `thinking_level="medium"`)**:
    - Synthesizes the refined plain-Korean `one_screen_summary`, `decision_label`, `claims_ledger`, and `oob_anchors`.
 4. **Stage 4 — PII Redaction (`gemma-4-31b-it`)**:
-   - Masks phone numbers and account numbers in the user's input and produces a shareable `help_packet` for trusted contacts or public helplines (`112`, `1332`, `118`).
+   - Is intended to mask phone numbers and account numbers in the user's input and produces a shareable `help_packet` for trusted contacts or public helplines (`112`, `1332`, `118`).
 
 ## 2. Failure Handling & Epistemic Integrity
 - If any live model stage fails or times out, Ariadne records `status: "failed"` and `call_outcome: "failed"` in the stage telemetry and sets `overall_status` to `"failed"` or `"partial_failure"`.
