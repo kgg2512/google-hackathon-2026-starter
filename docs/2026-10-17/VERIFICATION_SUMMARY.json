@@ -1,0 +1,51 @@
+{
+  "review_date_kst": "2026-10-17",
+  "scope": "Historical saved verification; no new model or deployment test",
+  "source_commit": "dc589078ca6dcc7c2e8e9c634ceafde696940ec6",
+  "report_timestamp": "2026-10-16T15:52:41+0900",
+  "tests": {
+    "A": {
+      "pass": true,
+      "overall_status": "partial_failure",
+      "elapsed_sec": 51.16,
+      "privacy_stage": "failed_timeout"
+    },
+    "B": {
+      "pass": false,
+      "overall_status": "partial_failure",
+      "elapsed_sec": 57.05,
+      "claims_count": 0,
+      "privacy_stage": "failed_timeout",
+      "companion_media": "partial_failure"
+    },
+    "C": {
+      "pass": false,
+      "overall_status": "partial_failure",
+      "elapsed_sec": 44.44,
+      "claims_count": 0,
+      "round1": "simulated_timeout",
+      "privacy_stage": "failed_timeout",
+      "companion_media": "partial_failure"
+    },
+    "D": {
+      "pass": true,
+      "scope": "recorded UI and video check",
+      "ui_elapsed_sec": 66.74,
+      "demo_mp4_size_bytes": 4730365
+    }
+  },
+  "unfinished": [
+    "B/C success criteria not met",
+    "Privacy-model timeout unresolved",
+    "Current deployment and source parity unverified",
+    "Fresh end-to-end model and browser verification not performed"
+  ],
+  "submission": "Existing Notion project record reports missed deadline; artifact presence does not establish submission",
+  "survey": {
+    "retrieved_projects": 111,
+    "independently_tested_services": 0,
+    "watched_full_demo_videos": 0
+  },
+  "excluded": "Raw input text, personal identifiers, credentials, authentication material, local paths, raw sessions, private operational records",
+  "documentation_change": "PR 2 contains documentation-only corrections; consult GitHub for merge status. Document adoption does not resolve recorded runtime failures."
+}
